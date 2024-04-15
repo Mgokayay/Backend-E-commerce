@@ -1,16 +1,17 @@
 package com.workintech.backend.service;
 
+import com.workintech.backend.dto.ProductResponse;
 import com.workintech.backend.entity.Product;
 
 import java.util.List;
 
 public interface ProductService {
 
-    Product save(Product product);
+    ProductResponse save(Product product);
 
-    List<Product> findAll();
+    List<ProductResponse> findAll();
 
-    Product findById(Long id);
+    ProductResponse findById(Long id);
 
-    Product delete(Long id);
+    ProductResponse delete(Long id);
 }
