@@ -1,7 +1,9 @@
 package com.workintech.backend.service;
 
+import com.workintech.backend.dto.ProductResponse;
 import com.workintech.backend.entity.Product;
 import com.workintech.backend.repository.ProductRepository;
+import com.workintech.backend.util.ProductDtoConvertion;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -18,32 +20,32 @@ public class ProductServiceImpl implements ProductService{
     }
 
     @Override
-    public Product save(Product product) {
-
-        return productRepository.save(product);
+    public ProductResponse save(Product product) {
+        productRepository.save(product);
+        return ProductDtoConvertion.convertProduct(product);
     }
 
     @Override
-    public List<Product> findAll() {
-
-        return productRepository.findAll();
+    public List<ProductResponse> findAll() {
+        List<Product> products = productRepository.findAll();
+        return ProductDtoConvertion.convertProductList(products);
     }
 
     @Override
-    public Product findById(Long id) {
+    public ProductResponse findById(Long id) {
         Optional<Product> productOptional= productRepository.findById(id);
         if(productOptional.isPresent()){
-            return productOptional.get();
+            return ProductDtoConvertion.convertProduct(productOptional.get());
         }
         throw new RuntimeException("Product is not exist with given id " + id);
     }
 
     @Override
-    public Product delete(Long id) {
+    public ProductResponse delete(Long id) {
         Optional<Product> productOptional = productRepository.findById(id);
         if(productOptional.isPresent()){
             productRepository.delete(productOptional.get());
-            return productOptional.get();
+            return ProductDtoConvertion.convertProduct(productOptional.get());
         }
         throw new RuntimeException("Product is not exist with given id " + id);
     }
