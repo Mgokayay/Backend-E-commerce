@@ -1,7 +1,9 @@
 package com.workintech.backend.service;
 
+import com.workintech.backend.dto.CategoryResponse;
 import com.workintech.backend.entity.Category;
 import com.workintech.backend.repository.CategoryRepository;
+import com.workintech.backend.util.CategoryDtoConvertion;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -18,30 +20,40 @@ public class CategoryServiceImpl implements CategoryService{
     }
 
     @Override
-    public Category save(Category category) {
-        return categoryRepository.save(category);
+    public CategoryResponse save(Category category) {
+        categoryRepository.save(category);
+        return CategoryDtoConvertion.categoryResponse(category);
     }
 
     @Override
-    public List<Category> findAll() {
-
-        return categoryRepository.findAll();
+    public List<CategoryResponse> findAll() {
+         List<Category> categories = categoryRepository.findAll();
+        return CategoryDtoConvertion.convertCategoryList(categories);
     }
 
     @Override
-    public Category findById(Long id) {
+    public CategoryResponse findById(Long id) {
         Optional<Category> categoryOptional = categoryRepository.findById(id);
         if(categoryOptional.isPresent()){
-            return categoryOptional.get();
+            return CategoryDtoConvertion.categoryResponse(categoryOptional.get());
         }
         throw new RuntimeException("Category is not exist with given id " + id);
     }
 
     @Override
-    public Category delete(Long id) {
+    public CategoryResponse delete(Long id) {
         Optional<Category> categoryOptional = categoryRepository.findById(id);
         if(categoryOptional.isPresent()){
             categoryRepository.delete(categoryOptional.get());
+            return CategoryDtoConvertion.categoryResponse(categoryOptional.get());
+        }
+        throw new RuntimeException("Category is not exist with given id " + id);
+    }
+
+    @Override
+    public Category findByCategoryId(Long id) {
+        Optional<Category> categoryOptional = categoryRepository.findById(id);
+        if(categoryOptional.isPresent()){
             return categoryOptional.get();
         }
         throw new RuntimeException("Category is not exist with given id " + id);
