@@ -1,5 +1,6 @@
 package com.workintech.backend.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.workintech.backend.enums.Gender;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -36,6 +37,7 @@ public class Category {
     @Column(name = "title")
     private String title;
 
+    @JsonBackReference
     @OneToMany(cascade = {CascadeType.ALL}, mappedBy = "category")
     private List<Product> products;
     //private List<Product> products = new ArrayList<>() bu da yapılabilirdi null check için
