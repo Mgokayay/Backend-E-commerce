@@ -6,6 +6,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @NoArgsConstructor
@@ -37,5 +38,14 @@ public class Category {
 
     @OneToMany(cascade = {CascadeType.ALL}, mappedBy = "category")
     private List<Product> products;
+    //private List<Product> products = new ArrayList<>() bu da yapılabilirdi null check için
+
+
+    public void addProduct(Product product){
+        if(products == null){
+            products = new ArrayList<>();
+        }
+        products.add(product);
+    }
 
 }
