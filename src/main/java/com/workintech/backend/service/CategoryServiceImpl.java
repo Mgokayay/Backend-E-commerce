@@ -2,9 +2,12 @@ package com.workintech.backend.service;
 
 import com.workintech.backend.dto.CategoryResponse;
 import com.workintech.backend.entity.Category;
+import com.workintech.backend.exceptions.CategoryException;
+import com.workintech.backend.factory.CategoryIdChecker;
 import com.workintech.backend.repository.CategoryRepository;
 import com.workintech.backend.util.CategoryDtoConvertion;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -34,28 +37,32 @@ public class CategoryServiceImpl implements CategoryService{
     @Override
     public CategoryResponse findById(Long id) {
         Optional<Category> categoryOptional = categoryRepository.findById(id);
+
+        CategoryIdChecker.idChecker(id);
         if(categoryOptional.isPresent()){
             return CategoryDtoConvertion.categoryResponse(categoryOptional.get());
         }
-        throw new RuntimeException("Category is not exist with given id " + id);
+        throw new CategoryException("Category is not exist with given id " + id,HttpStatus.BAD_REQUEST);
     }
 
     @Override
     public CategoryResponse delete(Long id) {
         Optional<Category> categoryOptional = categoryRepository.findById(id);
+        CategoryIdChecker.idChecker(id);
         if(categoryOptional.isPresent()){
             categoryRepository.delete(categoryOptional.get());
             return CategoryDtoConvertion.categoryResponse(categoryOptional.get());
         }
-        throw new RuntimeException("Category is not exist with given id " + id);
+        throw new CategoryException("Category is not exist with given id " + id, HttpStatus.BAD_REQUEST);
     }
 
     @Override
     public Category findByCategoryId(Long id) {
         Optional<Category> categoryOptional = categoryRepository.findById(id);
+        CategoryIdChecker.idChecker(id);
         if(categoryOptional.isPresent()){
             return categoryOptional.get();
         }
-        throw new RuntimeException("Category is not exist with given id " + id);
+        throw new CategoryException("Category is not exist with given id " + id,HttpStatus.BAD_REQUEST);
     }
 }
