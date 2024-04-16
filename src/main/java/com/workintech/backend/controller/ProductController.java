@@ -32,6 +32,10 @@ public class ProductController {
     public ProductResponse findById(@PathVariable Long id){
         return productService.findById(id);
     }
+    @GetMapping("/price:asc")
+    public List<ProductResponse> findAllByPriceAsc(){
+        return productService.findAllByPriceAsc();
+    }
 
     @PostMapping("/{categoryId}")
     public ProductResponse save(@RequestBody Product product,@PathVariable Long categoryId){
