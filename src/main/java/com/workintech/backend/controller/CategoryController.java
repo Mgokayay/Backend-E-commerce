@@ -4,10 +4,11 @@ import com.workintech.backend.dto.CategoryResponse;
 import com.workintech.backend.entity.Category;
 import com.workintech.backend.service.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-
+@Validated
 @RestController
 @RequestMapping("/category")
 public class CategoryController {
@@ -28,7 +29,7 @@ public class CategoryController {
     }
 
     @PostMapping
-    public CategoryResponse save(@RequestBody Category category){
+    public CategoryResponse save(@Validated @RequestBody Category category){
         return categoryService.save(category);
 
     }
