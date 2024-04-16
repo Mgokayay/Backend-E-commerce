@@ -43,10 +43,17 @@ public class ProductServiceImpl implements ProductService{
     @Override
     public ProductResponse delete(Long id) {
         Optional<Product> productOptional = productRepository.findById(id);
+        //TODO 500 hatası için
         if(productOptional.isPresent()){
             productRepository.delete(productOptional.get());
             return ProductDtoConvertion.convertProduct(productOptional.get());
         }
         throw new RuntimeException("Product is not exist with given id " + id);
+    }
+
+    @Override
+    public List<ProductResponse> findAllByPriceAsc() {
+        List<Product> products = productRepository.sortByPriceAsc();
+        return ProductDtoConvertion.convertProductList(products);
     }
 }
