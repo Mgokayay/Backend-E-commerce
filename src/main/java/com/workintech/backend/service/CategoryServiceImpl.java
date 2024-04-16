@@ -3,7 +3,7 @@ package com.workintech.backend.service;
 import com.workintech.backend.dto.CategoryResponse;
 import com.workintech.backend.entity.Category;
 import com.workintech.backend.exceptions.CategoryException;
-import com.workintech.backend.factory.CategoryIdChecker;
+import com.workintech.backend.factory.GlobalIdChecker;
 import com.workintech.backend.repository.CategoryRepository;
 import com.workintech.backend.util.CategoryDtoConvertion;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,6 +24,7 @@ public class CategoryServiceImpl implements CategoryService{
 
     @Override
     public CategoryResponse save(Category category) {
+
         categoryRepository.save(category);
         return CategoryDtoConvertion.categoryResponse(category);
     }
@@ -38,7 +39,7 @@ public class CategoryServiceImpl implements CategoryService{
     public CategoryResponse findById(Long id) {
         Optional<Category> categoryOptional = categoryRepository.findById(id);
 
-        CategoryIdChecker.idChecker(id);
+        GlobalIdChecker.categoryIdChecker(id);
         if(categoryOptional.isPresent()){
             return CategoryDtoConvertion.categoryResponse(categoryOptional.get());
         }
@@ -48,7 +49,7 @@ public class CategoryServiceImpl implements CategoryService{
     @Override
     public CategoryResponse delete(Long id) {
         Optional<Category> categoryOptional = categoryRepository.findById(id);
-        CategoryIdChecker.idChecker(id);
+        GlobalIdChecker.categoryIdChecker(id);
         if(categoryOptional.isPresent()){
             categoryRepository.delete(categoryOptional.get());
             return CategoryDtoConvertion.categoryResponse(categoryOptional.get());
@@ -59,7 +60,7 @@ public class CategoryServiceImpl implements CategoryService{
     @Override
     public Category findByCategoryId(Long id) {
         Optional<Category> categoryOptional = categoryRepository.findById(id);
-        CategoryIdChecker.idChecker(id);
+        GlobalIdChecker.categoryIdChecker(id);
         if(categoryOptional.isPresent()){
             return categoryOptional.get();
         }
