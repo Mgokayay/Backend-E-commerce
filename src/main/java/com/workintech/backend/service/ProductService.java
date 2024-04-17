@@ -16,4 +16,8 @@ public interface ProductService {
     ProductResponse delete(Long id);
 
     List<ProductResponse> findAllByPriceAsc();
+
+    List<ProductResponse> findAllByPriceDesc();
+
+    List<ProductResponse> filterByName(String search);
 }
