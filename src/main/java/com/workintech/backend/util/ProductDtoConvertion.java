@@ -12,12 +12,12 @@ public class ProductDtoConvertion {
            List<ProductResponse> productResponses = new ArrayList<>();
 
            products.stream().forEach(product -> productResponses.add(new ProductResponse(product.getId(),product.getName(),product.getPrice()
-           ,product.getSellCount(),product.getStock(),product.getDescription(),product.getImages(),product.getCategory().getId())));
+           ,product.getSellCount(),product.getStock(),product.getDescription(),product.getImages(),product.getCategory().getId(),product.getStore().getId())));
            return productResponses;
     }
 
     public static ProductResponse convertProduct(Product product){
         return new ProductResponse(product.getId(),product.getName(),product.getPrice()
-                ,product.getSellCount(),product.getStock(),product.getDescription(),product.getImages(),product.getCategory().getId());
+                ,product.getSellCount(),product.getStock(),product.getDescription(),product.getImages(),product.getCategory().getId(),product.getStore().getId());
     }
 }
