@@ -16,4 +16,6 @@ public interface CategoryService {
     CategoryResponse delete(Long id);
 
     Category findByCategoryId(Long id);
+
+
 }

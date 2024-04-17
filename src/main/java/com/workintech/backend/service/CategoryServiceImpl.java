@@ -2,7 +2,7 @@ package com.workintech.backend.service;
 
 import com.workintech.backend.dto.CategoryResponse;
 import com.workintech.backend.entity.Category;
-import com.workintech.backend.exceptions.CategoryException;
+import com.workintech.backend.exceptions.CommonException;
 import com.workintech.backend.factory.GlobalIdChecker;
 import com.workintech.backend.repository.CategoryRepository;
 import com.workintech.backend.util.CategoryDtoConvertion;
@@ -43,7 +43,7 @@ public class CategoryServiceImpl implements CategoryService{
         if(categoryOptional.isPresent()){
             return CategoryDtoConvertion.categoryResponse(categoryOptional.get());
         }
-        throw new CategoryException("Category is not exist with given id " + id,HttpStatus.BAD_REQUEST);
+        throw new CommonException("Category is not exist with given id " + id,HttpStatus.BAD_REQUEST);
     }
 
     @Override
@@ -54,7 +54,7 @@ public class CategoryServiceImpl implements CategoryService{
             categoryRepository.delete(categoryOptional.get());
             return CategoryDtoConvertion.categoryResponse(categoryOptional.get());
         }
-        throw new CategoryException("Category is not exist with given id " + id, HttpStatus.BAD_REQUEST);
+        throw new CommonException("Category is not exist with given id " + id, HttpStatus.BAD_REQUEST);
     }
 
     @Override
@@ -64,6 +64,6 @@ public class CategoryServiceImpl implements CategoryService{
         if(categoryOptional.isPresent()){
             return categoryOptional.get();
         }
-        throw new CategoryException("Category is not exist with given id " + id,HttpStatus.BAD_REQUEST);
+        throw new CommonException("Category is not exist with given id " + id,HttpStatus.BAD_REQUEST);
     }
 }
