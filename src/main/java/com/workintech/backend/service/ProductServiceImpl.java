@@ -56,4 +56,16 @@ public class ProductServiceImpl implements ProductService{
         List<Product> products = productRepository.sortByPriceAsc();
         return ProductDtoConvertion.convertProductList(products);
     }
+
+    @Override
+    public List<ProductResponse> findAllByPriceDesc() {
+        List<Product> products = productRepository.sortByPriceDesc();
+        return ProductDtoConvertion.convertProductList(products);
+    }
+
+    @Override
+    public List<ProductResponse> filterByName(String search) {
+        List<Product> products = productRepository.filterByName(search);
+        return ProductDtoConvertion.convertProductList(products);
+    }
 }
