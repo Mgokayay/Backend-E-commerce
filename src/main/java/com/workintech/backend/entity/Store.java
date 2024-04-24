@@ -38,6 +38,10 @@ public class Store {
     @OneToMany(cascade = CascadeType.ALL,mappedBy = "store")
     private List<Product> products;
 
+    @OneToOne(cascade = {CascadeType.DETACH,CascadeType.MERGE,CascadeType.PERSIST,CascadeType.REFRESH})
+    @JoinColumn(name = "user_id")
+    private User user;
+
 
     public void addProduct(Product product){
         if(products == null){
