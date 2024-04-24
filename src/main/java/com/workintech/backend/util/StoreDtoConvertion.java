@@ -12,12 +12,12 @@ public class StoreDtoConvertion {
         List<StoreResponse> storeResponses = new ArrayList<>();
 
         stores.stream().forEach(store -> storeResponses.add(new StoreResponse(store.getId(),store.getName()
-                ,store.getPhone(),store.getTaxNo(),store.getBankAccount(),store.getProducts())));
+                ,store.getPhone(),store.getTaxNo(),store.getBankAccount(),store.getProducts(),store.getUser().getId())));
         return storeResponses;
     }
 
     public static StoreResponse convertStore(Store store){
         return new StoreResponse(store.getId(),store.getName()
-                ,store.getPhone(),store.getTaxNo(),store.getBankAccount(),store.getProducts());
+                ,store.getPhone(),store.getTaxNo(),store.getBankAccount(),store.getProducts(),store.getUser().getId());
     }
 }
