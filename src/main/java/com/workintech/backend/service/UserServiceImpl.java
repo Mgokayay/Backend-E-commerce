@@ -51,4 +51,13 @@ public class UserServiceImpl implements UserService{
         }
         throw new CommonException("User is not exist with given id " + id, HttpStatus.NOT_FOUND);
     }
+
+    @Override
+    public User findByUserId(Long id) {
+        Optional<User> userOptional=userRepository.findById(id);
+        if(userOptional.isPresent()){
+            return userOptional.get();
+        }
+        throw new CommonException("User is not exist with given id " + id, HttpStatus.NOT_FOUND);
+    }
 }
