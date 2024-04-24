@@ -34,12 +34,23 @@ public class User{
     @OneToMany(cascade = CascadeType.ALL,mappedBy = "user")
     private List<Card> cards;
 
+    @OneToOne(cascade = CascadeType.ALL,mappedBy = "user")
+    private Store store;
+
+
     public void addCard(Card card){
         if(cards == null){
             cards = new ArrayList<>();
         }
         cards.add(card);
     }
+
+    @JsonBackReference
+    @OneToMany(cascade = CascadeType.ALL,mappedBy = "user")
+    private List<Address> addresses = new ArrayList<>();
+
+
+
 
 
 
