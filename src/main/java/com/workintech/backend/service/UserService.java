@@ -15,6 +15,8 @@ public interface UserService {
 
     UserResponse delete(Long id);
 
+    User findByUserId(Long id);
+
 
 
 
