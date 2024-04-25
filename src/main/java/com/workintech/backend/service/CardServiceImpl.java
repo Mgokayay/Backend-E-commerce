@@ -52,4 +52,14 @@ public class CardServiceImpl implements CardService{
         }
         throw new CommonException("Card is not exist with given id " + id, HttpStatus.NOT_FOUND);
     }
+
+    @Override
+    public Card findByCardId(Long id) {
+        Optional<Card> cardOptional = cardRepository.findById(id);
+        if (cardOptional.isPresent()) {
+            cardRepository.delete(cardOptional.get());
+            return cardOptional.get();
+        }
+        throw new CommonException("Card is not exist with given id " + id, HttpStatus.NOT_FOUND);
+    }
 }
