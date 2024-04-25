@@ -49,6 +49,9 @@ public class User{
     @OneToMany(cascade = CascadeType.ALL,mappedBy = "user")
     private List<Address> addresses = new ArrayList<>();
 
+    @OneToMany(cascade = CascadeType.ALL,mappedBy = "user")
+    private List<Order> orders = new ArrayList<>();
+
 
 
 
