@@ -54,7 +54,7 @@ public class CategoryServiceImpl implements CategoryService{
             categoryRepository.delete(categoryOptional.get());
             return CategoryDtoConvertion.categoryResponse(categoryOptional.get());
         }
-        throw new CommonException("Category is not exist with given id " + id, HttpStatus.BAD_REQUEST);
+        throw new CommonException("Category is not exist with given id " + id, HttpStatus.NOT_FOUND);
     }
 
     @Override
@@ -64,6 +64,6 @@ public class CategoryServiceImpl implements CategoryService{
         if(categoryOptional.isPresent()){
             return categoryOptional.get();
         }
-        throw new CommonException("Category is not exist with given id " + id,HttpStatus.BAD_REQUEST);
+        throw new CommonException("Category is not exist with given id " + id,HttpStatus.NOT_FOUND);
     }
 }
