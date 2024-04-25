@@ -2,9 +2,11 @@ package com.workintech.backend.service;
 
 import com.workintech.backend.dto.ProductResponse;
 import com.workintech.backend.entity.Product;
+import com.workintech.backend.exceptions.CommonException;
 import com.workintech.backend.repository.ProductRepository;
 import com.workintech.backend.util.ProductDtoConvertion;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -37,7 +39,7 @@ public class ProductServiceImpl implements ProductService{
         if(productOptional.isPresent()){
             return ProductDtoConvertion.convertProduct(productOptional.get());
         }
-        throw new RuntimeException("Product is not exist with given id " + id);
+        throw new CommonException("Product is not exist with given id " + id, HttpStatus.NOT_FOUND);
     }
 
     @Override
@@ -48,7 +50,7 @@ public class ProductServiceImpl implements ProductService{
             productRepository.delete(productOptional.get());
             return ProductDtoConvertion.convertProduct(productOptional.get());
         }
-        throw new RuntimeException("Product is not exist with given id " + id);
+        throw new CommonException("Product is not exist with given id " + id,HttpStatus.NOT_FOUND);
     }
 
     @Override
