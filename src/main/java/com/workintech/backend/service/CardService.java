@@ -14,4 +14,6 @@ public interface CardService {
     CardResponse save(Card card);
 
     CardResponse delete(Long id);
+
+    Card findByCardId(Long id);
 }
